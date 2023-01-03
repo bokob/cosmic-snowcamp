@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+    <h2>무창 아이디어 메모장</h2>
+    <div>
+        <form>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Pink">Pink
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Gray">Gray
+          </div>
+        </form>
+
+        <div class="input-group mb-3">
+            <input id = "inputField" type="text" class="form-control" placeholder="아이디어 입력하셈." aria-label="idea" aria-describedby="button-addon2">
+            <button onclick="addIdea()" class="btn btn-outline-secondary" type='button' id="button-addon2" return false;>저장</button>
+        </div>
+
+        <div id="ideaList">
+            <!-- 카드 추가되는 곳 -->
+        </div>
+
+        <!-- <div class="card">
+            <div class="card-header" style="background-color:Pink">
+              시간
+            </div>
+            <div class="card-body">
+              <p class="card-text">아이디어 내용</p>
+              <a href="#" class="btn btn-primary">삭제</a>
+            </div>
+          </div> -->
+        
+    </div>
+    <script>
+        function addIdea(){
+
+            let newCard = document.createElement('div'); // card 최상위
+            newCard.setAttribute('class','card'); 
+            
+            // 카드 제목(날짜, 시간)
+            var now = new Date();
+            let newCardTitle = document.createElement('div'); // 카드 제목 태그
+            newCardTitle.setAttribute('class', 'card-header');
+
+            let colors = document.getElementsByName('flexRadioDefault'); // 라디오 버튼의 value 가져오기
+            let selectColor;
+
+            for(let i=0;i<colors.length;i++){   // 반복문으로 체크된 색의 value 구한다.
+                if(colors[i].checked){
+                    selectColor=colors[i].value;
+                }
+            }
+            
+            // console.log(selectColor);
+
+            if(selectColor=='Pink')
+                newCardTitle.style.cssText = 'background-color: Pink';
+            else
+                newCardTitle.style.cssText = 'background-color: Gray';
+
+
+            let newCardTitleTextNode = document.createTextNode(now); // 카드 제목 텍스트 노드
+            newCardTitle.appendChild(newCardTitleTextNode); // 카드 제목 태그에 카드 제목 텍스트 노드 추가
+
+            // 카드 바디
+            let newCardBody = document.createElement('div');
+            newCardBody.setAttribute('class', 'card-body');
+
+            let newCardContent = document.createElement('p'); // 아이디어 내용 태그
+            newCardContent.setAttribute('class', 'card-text');
+            let input = document.querySelector('#inputField'); // 아이디어 적는 곳 찾기
+            let newCardContentTextNode = document.createTextNode(input.value); // 적힌 아이디어 텍스트 노드로 만든다.
+            newCardContent.appendChild(newCardContentTextNode); // 내용 태그에 아이디어 텍스트 노드 추가
+            
+            let newDeleteBtn = document.createElement('a'); // 삭제 버튼 태그
+            newDeleteBtn.setAttribute('href', '#');
+            newDeleteBtn.setAttribute('class', 'btn btn-primary');
+            newDeleteBtn.addEventListener('click', (e)=>{
+                e.target.parentElement.parentElement.remove(); // 부모의 부모의 태그 삭제
+            }); // 이벤트 리스너로 이벤트 넣기
+
+            //newDeleteBtn.setAttribute('onclick', 'deleteIdea();') // 이벤트 함수 넣기
+            let newDeleteBtnTextNode = document.createTextNode('삭제'); // 삭제 버튼 이름
+            newDeleteBtn.appendChild(newDeleteBtnTextNode); // 삭제 버튼 태그에 삭제 버튼 이름 노드 추가
+            
+            // 카드 바디 완성
+            newCardBody.appendChild(newCardContent);
+            newCardBody.appendChild(newDeleteBtn);
+
+            // 카드 완성
+            newCard.appendChild(newCardTitle);
+            newCard.appendChild(newCardBody);
+
+            var addLocation = document.querySelector('#ideaList'); // 카드 추가할 곳
+
+            addLocation.appendChild(newCard);
+            console.log("카드 추가 됨");
+        }
+
+    </script>
+</body>
+</html>
