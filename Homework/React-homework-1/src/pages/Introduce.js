@@ -4,10 +4,7 @@ function Introduce() {
       <h3 class="screen_out">작가소개</h3>
       <div class="author_intro animation_up">
         <strong class="tit_intro">소개</strong>
-        <p class="desc_intro">
-          프로그래머 교육 서비스인 넥스트스텝을 운영하고 있으며, 우아한형제들에서 우아한테크코스
-          교육 과정을 만들어 가고 있다.
-        </p>
+        <p class="desc_intro">충북대학교 충붕이</p>
         <ul class="list_tag">
           <li>
             <a href="/keyword/profile/IT" class="link_tag #profilekeyword">
@@ -16,32 +13,32 @@ function Introduce() {
           </li>
           <li>
             <a href="/keyword/profile/교육" class="link_tag #profilekeyword">
-              교육
+              게임
             </a>
           </li>
           <li>
             <a href="/keyword/profile/스타트업" class="link_tag #profilekeyword">
-              스타트업
+              그래픽스
             </a>
           </li>
           <li>
             <a href="/keyword/profile/CEO" class="link_tag #profilekeyword">
-              CEO
+              백수
             </a>
           </li>
           <li>
             <a href="/keyword/profile/강사" class="link_tag #profilekeyword">
-              강사
+              3학년
             </a>
           </li>
           <li>
             <a href="/keyword/profile/개발자" class="link_tag #profilekeyword">
-              개발자
+              만화
             </a>
           </li>
           <li>
             <a href="/keyword/profile/넥스트스텝" class="link_tag #profilekeyword">
-              넥스트스텝
+              충북대학교
             </a>
           </li>
         </ul>
