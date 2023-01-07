@@ -28,7 +28,7 @@ ul {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: unset;
   -moz-osx-font-smoothing: grayscale;
-  /*font-smoothing: antialiased;*/
+  font-smoothing: antialiased;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -239,7 +239,7 @@ var {
 }
 .frame_g {
   border: 1px solid #2c2f35;
-  /*filter: alpha(opacity: 10);*/
+  filter: alpha(opacity= 10);
 }
 .frame_b,
 .frame_g {
@@ -703,7 +703,7 @@ var {
 }
 .service_header .author_and_date {
   display: inline-block;
-  /*float: left;*/
+  float: left;
 }
 .service_header .author_and_date .ico_by,
 .service_header.article.beyond_content .author_and_date .ico_by,
@@ -790,7 +790,7 @@ var {
   display: none;
 }
 .service_header .wrapButtonSocialShare.show .wrap_share_gnb {
-  /*webkit-box-shadow: 1px 1px 0 hsla(0, 0%, 100%, 0.06);*/
+  webkit-box-shadow: 1px 1px 0 hsla(0, 0%, 100%, 0.06);
   background-color: #fff;
   box-shadow: 1px 1px 0 hsla(0, 0%, 100%, 0.06);
   display: block;
@@ -1661,8 +1661,8 @@ footer .copyright {
 .btn_subscription {
   background-color: #00c3bd;
   color: #fff;
-  /*filter: alpha(opacity: 90);
-  opacity: 0.9;*/
+  filter: alpha(opacity= 90);
+  opacity: 0.9;
 }
 .btn_subscription .txt_on {
   display: none;
@@ -1684,8 +1684,8 @@ footer .copyright {
   background-color: #fff;
   border: 2px solid #00c3bd;
   color: #00c3bd;
-  /*filter: alpha(opacity: 90);
-  opacity: 0.9;*/
+  filter: alpha(opacity= 90);
+  opacity: 0.9;
 }
 .btn_default .ico_brunch {
   background-position: -60px 0;
@@ -2065,7 +2065,7 @@ footer .copyright {
   outline: 5px auto -webkit-focus-ring-color;
 }
 #wrapSideMenu .wrap_side_service_menu li.remember-me .choice_comm .inp_comm {
-  /*-webkit-appearance: none;*/
+  -webkit-appearance: none;
   height: 18px;
   left: 0;
   outline: 0;
@@ -2251,8 +2251,8 @@ footer .copyright {
 }
 .list_common .link_thumb:hover .frame_g {
   background-color: #000;
-  /*filter: alpha(opacity: 25);
-  opacity: 0.25;*/
+  filter: alpha(opacity= 25);
+  opacity: 0.25;
 }
 .list_common .append_common {
   color: #959595;
@@ -2442,10 +2442,10 @@ footer .copyright {
 .suggest_guide .recmd_keyword:hover {
   text-decoration: none;
 }
-/*.recmd_list . li {
+.recmd_list .li {
   height: 194px;
   width: 140px;
-}*/
+}
 .recmd_list .thumb_img {
   border-radius: 50%;
   height: 120px;
@@ -2459,7 +2459,7 @@ footer .copyright {
   font-size: 15px;
   font-weight: lighter;
   padding: 15px 0 0;
-  /*-ms-text-overflow: ellipsis;*/
+  -ms-text-overflow: ellipsis;
   white-space: nowrap;
 }
 .recmd_list .tit_wirter,
@@ -2834,7 +2834,7 @@ footer .copyright {
   position: relative;
 }
 .choice_set .inp_choice {
-  /*-webkit-appearance: none;*/
+  -webkit-appearance: none;
   background: 0 0;
   cursor: pointer;
   height: 22px;
