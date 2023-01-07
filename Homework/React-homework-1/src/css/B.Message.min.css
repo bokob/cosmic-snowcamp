@@ -130,7 +130,7 @@
 }
 .item_start .choice_book .inp_comm,
 .item_start .choice_comm .inp_comm {
-  /*-webkit-appearance: none;*/
+  -webkit-appearance: none;
   border: 0;
   height: 18px;
   left: 0;
@@ -333,7 +333,7 @@
 }
 .layer_login .item_slide {
   display: inline-block;
-  /*float: left;*/
+  float: left;
   width: 50%;
 }
 .layer_login .top_logo {

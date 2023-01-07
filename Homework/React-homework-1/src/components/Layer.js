@@ -14,6 +14,7 @@ function Layer() {
           </a>
         </div>
       </div>
+      <brunchbookproject-join-popup></brunchbookproject-join-popup>
     </div>
   );
 }
