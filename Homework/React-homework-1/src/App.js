@@ -51,24 +51,44 @@ function Debug() {
 }
 
 function TabContent() {
+  let [tab, setTab] = useState(-1);
+
   return (
     <>
       <div className="tab_contents">
         <strong className="screen_out">작가프로필 하위메뉴</strong>
         <ul id="contentsTab" className="list_tab">
-          <li className="on">
-            <Link to="info" className="infoTab link_tab #info_open">
+          <li className={tab === 0 ? 'on' : ''}>
+            <Link
+              to="info"
+              className="infoTab link_tab #info_open"
+              onClick={() => {
+                setTab(0);
+              }}
+            >
               <span className="txt_tab">작가소개</span>
             </Link>
           </li>
-          <li className="">
-            <Link to="articles" className="articleTab link_tab">
-              <span className="txt_tab">글 (개수)</span>
+          <li className={tab === 1 ? 'on' : ''}>
+            <Link
+              to="articles"
+              className="articleTab link_tab"
+              onClick={() => {
+                setTab(1);
+              }}
+            >
+              <span className="txt_tab">글 {articles.length}</span>
             </Link>
           </li>
-          <li className="">
-            <Link to="works" className="magazineTab link_tab">
-              <span className="txt_tab">작품 (개수)</span>
+          <li className={tab === 2 ? 'on' : ''}>
+            <Link
+              to="works"
+              className="magazineTab link_tab"
+              onClick={() => {
+                setTab(2);
+              }}
+            >
+              <span className="txt_tab">작품 {works.length}</span>
             </Link>
           </li>
         </ul>

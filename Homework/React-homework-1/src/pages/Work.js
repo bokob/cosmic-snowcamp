@@ -20,7 +20,6 @@ function Work(props) {
 }
 
 function WorkItem(props) {
-  console.log(props.title);
   return (
     <>
       <div id="loadSpinner" class="layer-more-loading" style={{ display: 'none' }}>
