@@ -9,9 +9,11 @@ import './css/B.Home.min.css';
 import './css/B.Message.min.css';
 import './css/B.min.css';
 import Introduce from './pages/Introduce';
-import Work from './pages/Work';
 import { useState } from 'react';
 import { prependToMemberExpression } from '@babel/types';
+import { Work, WorkItem } from './pages/Work';
+import { Article, ArticleItem } from './pages/Article';
+import { works, articles } from './data/data.js';
 
 function App() {
   return (
@@ -21,8 +23,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Common />}>
           <Route path="/info" element={<Introduce />} />
-          <Route path="/articles" element={<div>글</div>} />
-          <Route path="/works" element={<Work />} />
+          <Route path="/articles" element={<Article articles={articles} />} />
+          <Route path="/works" element={<Work works={works} />} />
         </Route>
         <Route path="*" element={<div>404임 꺼지셈</div>} />
       </Routes>
@@ -71,7 +73,6 @@ function TabContent() {
           </li>
         </ul>
       </div>
-      {/* 구분선 밑부분 부터 main 태그   article 들어가는 곳임*/}
     </>
   );
 }
