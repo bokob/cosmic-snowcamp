@@ -1,8 +1,9 @@
 import "./App.css";
 import { InputGroup, Button, Form } from "react-bootstrap";
+import { Routes, Route, Outlet } from "react-router-dom";
 import Search from "./pages/Search.js";
-import Chart from "./pages/Chart.js";
-import { Routes, Route, Link, Outlet } from "react-router-dom";
+import Example from "./pages/Chart.js";
+// import key from "./ignore/API_KEY.js";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}>
           <Route path="search" element={<Search />} />
-          <Route path="chart" element={<Chart />} />
+          <Route path="chart" element={<Example />} />
         </Route>
         <Route path="*" element={<>404임 꺼지셈</>} />
       </Routes>
