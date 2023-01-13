@@ -1,35 +1,40 @@
 import React, { PureComponent } from "react";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 
-export default class Example extends PureComponent {
+export default class Chart extends PureComponent {
   static demoUrl =
     "https://codesandbox.io/s/pie-chart-with-customized-label-dlhhj";
 
   render() {
     let data = [
-      { name: "Protein", value: 400 },
-      { name: "Fat", value: 300 },
-      { name: "Carbonydrate", value: 300 },
+      { nutrient: "Protein", kcal: 400 },
+      { nutrient: "Fat", kcal: 300 },
+      { nutrient: "Carbonydrate", kcal: 300 },
     ];
+
+    let totalKcal = data[0].kcal * 4 + data[1].kcal * 9 + data[2].kcal * 4;
 
     const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
 
     return (
       // <ResponsiveContainer width="100%" height="100%">
       <>
-        <header>식품이름</header>
-        <PieChart width={500} height={500}>
+        <h3 style={{ textAlign: "left" }}>식품이름</h3>
+        <h5 style={{ textAlign: "left" }}>
+          1회 섭취량 당 칼로리 {totalKcal} kcal
+        </h5>
+        <PieChart width={400} height={400}>
           <Pie
             data={data}
             cx="50%"
             cy="50%"
             labelLine={true}
             label={(data) => {
-              return `${data.name} ${String(data.value)}`;
+              return `${data.nutrient} ${String(data.kcal)}`;
             }}
             outerRadius={80}
             fill="#8884d8"
-            dataKey="value"
+            dataKey="kcal"
           >
             {data.map((entry, index) => (
               <Cell
