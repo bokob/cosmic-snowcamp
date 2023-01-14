@@ -23,11 +23,13 @@ function App() {
 function Main() {
   let [food, setFood] = useState(""); // 검색 음식
   let [foodList, setFoodList] = useState([]);
+  let [loading, setLoading] = useState(null);
   let data, foodLength;
 
   let url = `http://openapi.foodsafetykorea.go.kr/api/${key}/I2790/json/1/1000/DESC_KOR="${food}"`;
 
   async function Request() {
+    setLoading(true);
     try {
       const response = await fetch(url, { method: "GET" });
       data = await response.json();
@@ -66,6 +68,7 @@ function Main() {
 
         foodList.push(temp);
       }
+      setLoading(false);
     } catch (error) {
       console.log("에러");
     }
@@ -102,7 +105,7 @@ function Main() {
           검색
         </Button>
       </InputGroup>
-
+      {loading ? <div>로딩중</div> : null}
       <Outlet></Outlet>
     </>
   );
