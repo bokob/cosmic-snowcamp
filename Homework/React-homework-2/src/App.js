@@ -21,8 +21,10 @@ function App() {
 }
 
 function Main() {
-  let [food, setFood] = useState("");
+  let [food, setFood] = useState(""); // 검색 음식
   let data, foodLength;
+
+  let foodList = [];
 
   let url = `http://openapi.foodsafetykorea.go.kr/api/${key}/I2790/json/1/100/DESC_KOR="${food}"`;
 
@@ -52,10 +54,42 @@ function Main() {
             // console.log(data["I2790"]); 정상작동 코드
             // console.log(data["I2790"]);
             foodLength = data["I2790"]["row"].length;
+            console.log(foodLength);
 
             for (let i = 0; i < foodLength; i++) {
-              console.log(data["I2790"]["row"][i]);
+              // console.log(data["I2790"]["row"][i]["DESC_KOR"]);
+              // console.log(data["I2790"]["row"][i]["FOOD_CD"]);
+              // console.log(data["I2790"]["row"][i]["GROUP_NAME"]);
+              // console.log(data["I2790"]["row"][i]["MAKER_NAME"]);
+              // console.log(data["I2790"]["row"][i]["NUTR_CONT1"]);
+              // console.log(data["I2790"]["row"][i]["NUTR_CONT2"]);
+              // console.log(data["I2790"]["row"][i]["NUTR_CONT3"]);
+              // console.log(data["I2790"]["row"][i]["NUTR_CONT4"]);
+
+              let foodName = data["I2790"]["row"][i]["DESC_KOR"];
+              let foodCode = data["I2790"]["row"][i]["FOOD_CD"];
+              let foodGroup = data["I2790"]["row"][i]["GROUP_NAME"];
+              let makerName = data["I2790"]["row"][i]["MAKER_NAME"];
+              let calorie = data["I2790"]["row"][i]["NUTR_CONT1"];
+              let carbohydrate = data["I2790"]["row"][i]["NUTR_CONT2"];
+              let protein = data["I2790"]["row"][i]["NUTR_CONT3"];
+              let fat = data["I2790"]["row"][i]["NUTR_CONT4"];
+
+              let temp = [
+                foodName,
+                foodCode,
+                foodGroup,
+                makerName,
+                calorie,
+                carbohydrate,
+                protein,
+                fat,
+              ];
+
+              foodList.push(temp);
             }
+
+            console.log(foodList);
 
             // console.log(data["I2790"]["row"][0]);
             // console.log(foodLength);
