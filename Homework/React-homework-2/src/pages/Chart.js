@@ -12,7 +12,10 @@ export default class Chart extends PureComponent {
       { nutrient: "Carbonydrate", kcal: 300 },
     ];
 
-    let totalKcal = data[0].kcal * 4 + data[1].kcal * 9 + data[2].kcal * 4;
+    let totalKcal =
+      (data[0].kcal * 4 + data[1].kcal * 9 + data[2].kcal * 4) / 3;
+
+    totalKcal = totalKcal.toFixed(0);
 
     const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
 
