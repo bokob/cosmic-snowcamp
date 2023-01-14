@@ -1,10 +1,10 @@
 import "./App.css";
 import { InputGroup, Button, Form } from "react-bootstrap";
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route, Outlet, Link, useNavigate } from "react-router-dom";
 import Search from "./pages/Search.js";
 import Chart from "./pages/Chart.js";
 import key from "./ignore/API_KEY.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   return (
@@ -22,15 +22,53 @@ function App() {
 
 function Main() {
   let [food, setFood] = useState(""); // 검색 음식
+  let [foodList, setFoodList] = useState([]);
   let data, foodLength;
 
-  let foodList = [];
-
-  let url = `http://openapi.foodsafetykorea.go.kr/api/${key}/I2790/json/1/100/DESC_KOR="${food}"`;
+  let url = `http://openapi.foodsafetykorea.go.kr/api/${key}/I2790/json/1/1000/DESC_KOR="${food}"`;
 
   async function Request() {
-    const response = await fetch(url, { method: "GET" });
-    data = await response.json();
+    try {
+      const response = await fetch(url, { method: "GET" });
+      data = await response.json();
+
+      foodLength = data["I2790"]["total_count"];
+
+      for (let i = 0; i < foodLength; i++) {
+        console.log(data["I2790"]["row"][i]["DESC_KOR"]);
+        // console.log(data["I2790"]["row"][i]["FOOD_CD"]);
+        // console.log(data["I2790"]["row"][i]["GROUP_NAME"]);
+        // console.log(data["I2790"]["row"][i]["MAKER_NAME"]);
+        // console.log(data["I2790"]["row"][i]["NUTR_CONT1"]);
+        // console.log(data["I2790"]["row"][i]["NUTR_CONT2"]);
+        // console.log(data["I2790"]["row"][i]["NUTR_CONT3"]);
+        // console.log(data["I2790"]["row"][i]["NUTR_CONT4"]);
+
+        let foodName = data["I2790"]["row"][i]["DESC_KOR"];
+        let foodCode = data["I2790"]["row"][i]["FOOD_CD"];
+        let foodGroup = data["I2790"]["row"][i]["GROUP_NAME"];
+        let makerName = data["I2790"]["row"][i]["MAKER_NAME"];
+        let calorie = data["I2790"]["row"][i]["NUTR_CONT1"];
+        let carbohydrate = data["I2790"]["row"][i]["NUTR_CONT2"];
+        let protein = data["I2790"]["row"][i]["NUTR_CONT3"];
+        let fat = data["I2790"]["row"][i]["NUTR_CONT4"];
+
+        let temp = [
+          foodName,
+          foodCode,
+          foodGroup,
+          makerName,
+          calorie,
+          carbohydrate,
+          protein,
+          fat,
+        ];
+
+        foodList.push(temp);
+      }
+    } catch (error) {
+      console.log("에러");
+    }
 
     // console.log(data);
   }
@@ -53,43 +91,8 @@ function Main() {
             Request();
             // console.log(data["I2790"]); 정상작동 코드
             // console.log(data["I2790"]);
-            foodLength = data["I2790"]["row"].length;
-            console.log(foodLength);
 
-            for (let i = 0; i < foodLength; i++) {
-              // console.log(data["I2790"]["row"][i]["DESC_KOR"]);
-              // console.log(data["I2790"]["row"][i]["FOOD_CD"]);
-              // console.log(data["I2790"]["row"][i]["GROUP_NAME"]);
-              // console.log(data["I2790"]["row"][i]["MAKER_NAME"]);
-              // console.log(data["I2790"]["row"][i]["NUTR_CONT1"]);
-              // console.log(data["I2790"]["row"][i]["NUTR_CONT2"]);
-              // console.log(data["I2790"]["row"][i]["NUTR_CONT3"]);
-              // console.log(data["I2790"]["row"][i]["NUTR_CONT4"]);
-
-              let foodName = data["I2790"]["row"][i]["DESC_KOR"];
-              let foodCode = data["I2790"]["row"][i]["FOOD_CD"];
-              let foodGroup = data["I2790"]["row"][i]["GROUP_NAME"];
-              let makerName = data["I2790"]["row"][i]["MAKER_NAME"];
-              let calorie = data["I2790"]["row"][i]["NUTR_CONT1"];
-              let carbohydrate = data["I2790"]["row"][i]["NUTR_CONT2"];
-              let protein = data["I2790"]["row"][i]["NUTR_CONT3"];
-              let fat = data["I2790"]["row"][i]["NUTR_CONT4"];
-
-              let temp = [
-                foodName,
-                foodCode,
-                foodGroup,
-                makerName,
-                calorie,
-                carbohydrate,
-                protein,
-                fat,
-              ];
-
-              foodList.push(temp);
-            }
-
-            console.log(foodList);
+            //console.log(data["I2790"]["total_count"]);
 
             // console.log(data["I2790"]["row"][0]);
             // console.log(foodLength);
@@ -99,9 +102,7 @@ function Main() {
           검색
         </Button>
       </InputGroup>
-      {/* {data["I2790"]["row"].map(function (a, i) {
-        return <div>안녕</div>;
-      })} */}
+
       <Outlet></Outlet>
     </>
   );
