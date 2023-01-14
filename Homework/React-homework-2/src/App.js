@@ -1,17 +1,16 @@
 import "./App.css";
 import { InputGroup, Button, Form } from "react-bootstrap";
-import { Routes, Route, Outlet, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import Search from "./pages/Search.js";
 import Chart from "./pages/Chart.js";
 import key from "./ignore/API_KEY.js";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<Main />}>
-          <Route path="search" element={<Search />} />
           <Route path="chart" element={<Chart />} />
         </Route>
         <Route path="*" element={<>404임 꺼지셈</>} />
@@ -24,6 +23,7 @@ function Main() {
   let [food, setFood] = useState(""); // 검색 음식
   let [foodList, setFoodList] = useState([]);
   let [loading, setLoading] = useState(null);
+  let [show, setShow] = useState(false);
   let data, foodLength;
 
   let url = `http://openapi.foodsafetykorea.go.kr/api/${key}/I2790/json/1/1000/DESC_KOR="${food}"`;
@@ -36,8 +36,17 @@ function Main() {
 
       foodLength = data["I2790"]["total_count"];
 
+      let copy = [];
+      setFoodList(copy);
+      console.log("다 비움");
+      console.log(foodList);
+
+      if (foodLength > 0) {
+        setShow(true);
+      }
+
       for (let i = 0; i < foodLength; i++) {
-        console.log(data["I2790"]["row"][i]["DESC_KOR"]);
+        // console.log(data["I2790"]["row"][i]["DESC_KOR"]);
         // console.log(data["I2790"]["row"][i]["FOOD_CD"]);
         // console.log(data["I2790"]["row"][i]["GROUP_NAME"]);
         // console.log(data["I2790"]["row"][i]["MAKER_NAME"]);
@@ -66,11 +75,14 @@ function Main() {
           fat,
         ];
 
-        foodList.push(temp);
+        copy.push(temp);
       }
+      //console.log(foodList);
+      foodList = [...copy];
+      setFoodList(foodList);
       setLoading(false);
     } catch (error) {
-      console.log("에러");
+      window.alert("에러");
     }
 
     // console.log(data);
@@ -105,7 +117,11 @@ function Main() {
           검색
         </Button>
       </InputGroup>
-      {loading ? <div>로딩중</div> : null}
+      {loading ? (
+        <div>검색 중입니다</div>
+      ) : (
+        <Search show={show} setShow={setShow} foodList={foodList} />
+      )}
       <Outlet></Outlet>
     </>
   );

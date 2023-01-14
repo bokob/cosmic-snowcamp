@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+.color:hover {
+  /*음식명 hover*/
+  background-color: aquamarine;
+}

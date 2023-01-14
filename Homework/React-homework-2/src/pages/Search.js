@@ -1,32 +1,93 @@
-import { Table } from "react-bootstrap";
+import { Nav, Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import "./../App.css";
+import Chart from "./Chart.js";
 
-function Search(props) {
+function Search({ show, foodList }) {
   // const [keyword, setKeyword] Redux 이용해서 keyword 저장한다.
 
   //const searchKeyword = document.querySelector('#keyword').value;
-  return (
-    <>
-      <Table striped bordered hover>
-        <tbody>
-          {props.data.map(function (item, i) {
-            return <FoodRow />;
-          })}
-          <FoodRow />
-          <FoodRow />
-          <FoodRow />
-        </tbody>
-      </Table>
-    </>
-  );
+  // console.log(foodList);
+
+  const [removeSearch, setRemoveSearch] = useState(null);
+  const [foodInfo, setFoodInfo] = useState([]);
+
+  let navigate = useNavigate();
+
+  console.log(show);
+
+  if (show === false && removeSearch === null) {
+    return <></>;
+  } else if (removeSearch === true) {
+    return <Chart foodInfo={foodInfo} />;
+  } else if (show === true) {
+    return (
+      <>
+        <Table bordered>
+          <tbody>
+            {foodList.map(function (element, i) {
+              return (
+                <FoodRow
+                  foodName={element[0]}
+                  foodGroup={element[2]}
+                  makerName={element[3]}
+                  calorie={element[4]}
+                  carbohydrate={element[5]}
+                  protein={element[6]}
+                  fat={element[7]}
+                  setRemoveSearch={setRemoveSearch}
+                  setFoodInfo={setFoodInfo}
+                />
+              );
+            })}
+          </tbody>
+        </Table>
+      </>
+    );
+  }
 }
 
-function FoodRow() {
+function FoodRow(props) {
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
+
+  // let navigate = useNavigate();
+
   return (
     <>
       <tr>
-        <td>음식명</td>
-        <td>음식그룹</td>
-        <td>제조사명</td>
+        <td
+          hover
+          className={isHovering ? "color" : ""}
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}
+        >
+          <Nav.Link
+            onClick={() => {
+              props.setRemoveSearch(true); // <Search/> 컴포넌트 없애기 위해 올리기
+              props.setFoodInfo([
+                props.foodName,
+                props.calorie,
+                props.carbohydrate,
+                props.protein,
+                props.fat,
+              ]);
+              //navigate("/chart");
+            }}
+          >
+            {props.foodName}
+          </Nav.Link>
+        </td>
+        <td>{props.foodGroup}</td>
+        <td>{props.makerName}</td>
       </tr>
     </>
   );
