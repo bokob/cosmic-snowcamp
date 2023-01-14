@@ -22,8 +22,17 @@ function App() {
 
 function Main() {
   let [food, setFood] = useState("");
-  console.log(food);
-  let data;
+  let data, foodLength;
+
+  let url = `http://openapi.foodsafetykorea.go.kr/api/${key}/I2790/json/1/100/DESC_KOR="${food}"`;
+
+  async function Request() {
+    const response = await fetch(url, { method: "GET" });
+    data = await response.json();
+
+    // console.log(data);
+  }
+
   return (
     <>
       <header style={{ textAlign: "left", fontSize: "30px" }}>
@@ -39,31 +48,26 @@ function Main() {
           variant="outline-secondary"
           id="button-addon2"
           onClick={() => {
-            // let url =
-            //   "http://openapi.foodsafetykorea.go.kr/api/" +
-            //   key +
-            //   '/I2790/xml/1/10/DESC_KOR="김치"';
-
-            let url = `http://openapi.foodsafetykorea.go.kr/api/${key}/I2790/json/1/10/DESC_KOR="${food}"`;
-
-            // console.log(url);
-
-            async function Request() {
-              const response = await fetch(url, { method: "GET" });
-              data = await response.json();
-            }
-
             Request();
             // console.log(data["I2790"]); 정상작동 코드
-            console.log(data["I2790"]);
-            console.log(data["I2790"]["row"].length);
+            // console.log(data["I2790"]);
+            foodLength = data["I2790"]["row"].length;
+
+            for (let i = 0; i < foodLength; i++) {
+              console.log(data["I2790"]["row"][i]);
+            }
+
+            // console.log(data["I2790"]["row"][0]);
+            // console.log(foodLength);
             // console.log(JSON.parse(data)); 질문할 코드 [object Object]
           }}
         >
           검색
         </Button>
       </InputGroup>
-      <div>{data}</div>
+      {/* {data["I2790"]["row"].map(function (a, i) {
+        return <div>안녕</div>;
+      })} */}
       <Outlet></Outlet>
     </>
   );
