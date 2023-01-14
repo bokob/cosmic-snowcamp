@@ -13,11 +13,10 @@ function Search({ show, foodList }) {
   const [removeSearch, setRemoveSearch] = useState(null);
   const [foodInfo, setFoodInfo] = useState([]);
 
-  let navigate = useNavigate();
-
   console.log(show);
 
   if (show === false && removeSearch === null) {
+    // 검색결과 보여줄지 말지 결정하는 부분이다.
     return <></>;
   } else if (removeSearch === true) {
     return <Chart foodInfo={foodInfo} />;
@@ -29,6 +28,7 @@ function Search({ show, foodList }) {
             {foodList.map(function (element, i) {
               return (
                 <FoodRow
+                  key={i}
                   foodName={element[0]}
                   foodGroup={element[2]}
                   makerName={element[3]}
@@ -59,7 +59,7 @@ function FoodRow(props) {
     setIsHovering(false);
   };
 
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
 
   return (
     <>
@@ -80,7 +80,7 @@ function FoodRow(props) {
                 props.protein,
                 props.fat,
               ]);
-              //navigate("/chart");
+              navigate("/chart");
             }}
           >
             {props.foodName}

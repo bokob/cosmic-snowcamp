@@ -1,6 +1,6 @@
 import "./App.css";
 import { InputGroup, Button, Form } from "react-bootstrap";
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route, Outlet, useNavigate } from "react-router-dom";
 import Search from "./pages/Search.js";
 import Chart from "./pages/Chart.js";
 import key from "./ignore/API_KEY.js";
@@ -11,7 +11,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Main />}>
-          <Route path="chart" element={<Chart />} />
+          <Route path="chart" element={<></>} />{" "}
+          {/* <Chart/> 하면 아예 페이지가 안뜸 왜냐하면 자식에서 부모 컴포넌트로 전송하게 했기 때문*/}
         </Route>
         <Route path="*" element={<>404임 꺼지셈</>} />
       </Routes>
@@ -20,15 +21,18 @@ function App() {
 }
 
 function Main() {
-  let [food, setFood] = useState(""); // 검색 음식
-  let [foodList, setFoodList] = useState([]);
-  let [loading, setLoading] = useState(null);
-  let [show, setShow] = useState(false);
+  let [keyword, setKeyword] = useState(""); // 검색 키워드
+  let [foodList, setFoodList] = useState([]); // 검색결과
+  let [loading, setLoading] = useState(null); // 로딩 상태
+  let [show, setShow] = useState(false); // <Search/> 보여줄지 결정하는 상태
   let data, foodLength;
 
-  let url = `http://openapi.foodsafetykorea.go.kr/api/${key}/I2790/json/1/1000/DESC_KOR="${food}"`;
+  let url = `http://openapi.foodsafetykorea.go.kr/api/${key}/I2790/json/1/1000/DESC_KOR="${keyword}"`;
+
+  const navigate = useNavigate();
 
   async function Request() {
+    // onClick에 때려 박으면 실행 순서가 꼬여서 정확히 안된다. 그러므로 바깥에 정의해야한다.
     setLoading(true);
     try {
       const response = await fetch(url, { method: "GET" });
@@ -97,12 +101,13 @@ function Main() {
         <Form.Control
           aria-label="입력"
           id="keyword"
-          onChange={(e) => setFood(e.target.value)}
+          onChange={(e) => setKeyword(e.target.value)}
         />
         <Button
           variant="outline-secondary"
           id="button-addon2"
           onClick={() => {
+            navigate("/");
             Request();
             // console.log(data["I2790"]); 정상작동 코드
             // console.log(data["I2790"]);
