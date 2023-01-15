@@ -1,15 +1,10 @@
 import { Nav, Table } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Route } from "react-router-dom";
 import { useState } from "react";
 import "./../App.css";
 import Chart from "./Chart.js";
 
 function Search({ show, foodList }) {
-  // const [keyword, setKeyword] Redux 이용해서 keyword 저장한다.
-
-  //const searchKeyword = document.querySelector('#keyword').value;
-  // console.log(foodList);
-
   const [removeSearch, setRemoveSearch] = useState(null);
   const [foodInfo, setFoodInfo] = useState([]);
 

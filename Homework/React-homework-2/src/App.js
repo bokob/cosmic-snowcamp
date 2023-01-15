@@ -12,7 +12,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}>
           <Route path="chart" element={<></>} />{" "}
-          {/* <Chart/> 하면 아예 페이지가 안뜸 왜냐하면 자식에서 부모 컴포넌트로 전송하게 했기 때문*/}
+          {/*  
+            최하위 <FoodRow/>에서 navigate해서 <Chart/> 하면 아예 페이지가 안뜸 -> <Search/>에서 Chart 다시 그리는걸로 해결
+          */}
         </Route>
         <Route path="*" element={<>404임 꺼지셈</>} />
       </Routes>
@@ -88,7 +90,6 @@ function Main() {
     } catch (error) {
       window.alert("에러");
     }
-
     // console.log(data);
   }
 
