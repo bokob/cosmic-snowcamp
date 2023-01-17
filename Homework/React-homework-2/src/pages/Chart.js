@@ -2,7 +2,8 @@ import React, { PureComponent } from "react";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 
 export default function Chart(props) {
-  console.log(props.selectFood);
+  //console.log(props.selectFood);
+
   let protein = parseFloat(props.selectFood[3]) * 4;
   let fat = parseFloat(props.selectFood[4]) * 9;
   let carbohydrate = parseFloat(props.selectFood[2]) * 4;
@@ -13,7 +14,7 @@ export default function Chart(props) {
     { nutrient: "Carbonydrate", kcal: carbohydrate },
   ];
 
-  console.log(props.selectFood);
+  //console.log(props.selectFood);
 
   let totalKcal = protein + fat + carbohydrate;
 
