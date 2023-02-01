@@ -1,15 +1,42 @@
 from fastapi import FastAPI
-
 from pydantic import BaseModel
-
+from fastapi.middleware.cors import CORSMiddleware
 import os
+
+app = FastAPI()
+
+origins = ["*"]
+
+origins = [
+    "http://localhost:3000"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class Item(BaseModel):
     food_name: str
     description: str
-    
 
-app = FastAPI()
+@app.post("/addfood")   # 음식 추가
+async def add(item : Item):
+    f=open(f'../db/{item.food_name}.txt','a')
+    f.write(item.description)
+    f.close()
+    return item
+
+@app.post("/deletefood")    # 음식 삭제
+async def delete(item : Item):
+
+    if(os.path.exists(f'../db/{item.food_name}.txt')):
+        os.remove(f'../db/{item.food_name}.txt')
+        return {"deleted_food_name": item.food_name}
+    return {'deleted_food_name': '지울게 없는뎁쇼?'}
 
 @app.get("/foods") # 음식 조회
 async def read():
@@ -35,7 +62,7 @@ async def read():
     for i in range(len(file_name)):
         temp = {'foodName':file_name[i], 'description':file_content[i]}
         food_list.append(temp)
-        
+
     return {"foods":food_list}
     
 
@@ -43,18 +70,3 @@ async def read():
 async def countfood():
     count = len(os.listdir('../db'))
     return {'foodsNum' : count}
-
-@app.post("/addfood")   # 음식 추가
-async def add(item : Item):
-    f=open(f'../db/{item.food_name}.txt','a')
-    f.write(item.description)
-    f.close()
-    return item
-
-@app.post("/deletefood")    # 음식 삭제
-async def delete(item : Item):
-
-    if(os.path.exists(f'../db/{item.food_name}.txt')):
-        os.remove(f'../db/{item.food_name}.txt')
-        return {"deleted_food_name": item.food_name}
-    return {'deleted_food_name': '지울게 없는뎁쇼?'}
