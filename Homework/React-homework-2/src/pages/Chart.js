@@ -2,9 +2,11 @@ import React, { PureComponent } from "react";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 
 export default function Chart(props) {
-  let protein = parseFloat(props.foodInfo[3]) * 4;
-  let fat = parseFloat(props.foodInfo[4]) * 9;
-  let carbohydrate = parseFloat(props.foodInfo[2]) * 4;
+  //console.log(props.selectFood);
+
+  let protein = parseFloat(props.selectFood[3]) * 4;
+  let fat = parseFloat(props.selectFood[4]) * 9;
+  let carbohydrate = parseFloat(props.selectFood[2]) * 4;
 
   let data = [
     { nutrient: "Protein", kcal: protein },
@@ -12,7 +14,7 @@ export default function Chart(props) {
     { nutrient: "Carbonydrate", kcal: carbohydrate },
   ];
 
-  console.log(props.foodInfo);
+  //console.log(props.selectFood);
 
   let totalKcal = protein + fat + carbohydrate;
 
@@ -23,10 +25,8 @@ export default function Chart(props) {
   return (
     // <ResponsiveContainer width="100%" height="100%">
     <>
-      <h3 style={{ textAlign: "left" }}>{props.foodInfo[0]}</h3>
-      <h5 style={{ textAlign: "left" }}>
-        1회 섭취량 당 칼로리 {totalKcal} kcal
-      </h5>
+      <h3 style={{ textAlign: "left" }}>{props.selectFood[0]}</h3>
+      <h5 style={{ textAlign: "left" }}>1회 섭취량 당 칼로리 {totalKcal} kcal</h5>
       <PieChart width={500} height={400}>
         <Pie
           data={data}
